@@ -34,6 +34,4 @@ vendor_tarball() (
     mv "${tmp}/extracted" "${dest}"
 )
 
-vendor_tarball \
-    "https://github.com/tinyalsa/tinyalsa/archive/refs/tags/v2.0.0.tar.gz" \
-    tinyalsa
+vendor_tarball "https://github.com/tinyalsa/tinyalsa/archive/refs/tags/v2.0.0.tar.gz" tinyalsa
