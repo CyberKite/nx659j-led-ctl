@@ -1,0 +1,6 @@
+id=nx659j-led-service
+name=NX659J LED Controller Service
+version=v1.2.0-mod
+versionCode=4
+author=Cyberfishofant@XDAForums
+description=Control the rear LED using Monet accents!

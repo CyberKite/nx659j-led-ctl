@@ -1,0 +1,42 @@
+#SOURCEABLE
+# Rate at which to check screen state
+CHECK_INTERVAL=6
+# Poll the Monet color value every n-th time
+COLOR_INTERVAL=10
+
+# Color specs:
+# - RRGGBB[|FILTER]
+# - #RRGGBB[|FILTER]
+# - '$system_accent1_500[|FILTER]' <-- this is shell, quote these!
+# - '$android:color/system_accent1_500[|FILTER]' <-- obviously ditto
+# - off
+# Color Filters:
+# boost:<factor>    : Multiply RGB saturation
+# hsvsat:<factor>   : Set HSV saturation (0-1)
+
+# Examples:
+# - '$system_accent1_500|hsvsat:1'
+# - '#ff8800|boost:1.5'
+
+# Anim specs:
+# - solid
+# - flash
+# - music
+
+FULL_COLOR=00ff00
+FULL_ANIM=solid
+
+CHARGE_COLOR='$system_accent1_500|hsvsat:1'
+CHARGE_ANIM=flash
+
+SCREEN_ON_COLOR='$system_accent1_500|hsvsat:1'
+SCREEN_ON_ANIM=solid
+SCREEN_OFF_COLOR='$system_accent1_500|hsvsat:1'
+SCREEN_OFF_ANIM=music
+
+# this one does not support accents, too early in the boot process
+BOOT_COLOR=ff0000
+BOOT_ANIM=solid
+
+FALLBACK_COLOR=ff00ff
+FALLBACK_ANIM=flash
