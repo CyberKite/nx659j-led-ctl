@@ -25,6 +25,9 @@ all: $(ZIP)
 clean:
 	rm -rf '$(OUT)' build
 
+mrproper: clean
+	$(MAKE) -C vendor/tinyalsa clean
+
 ifeq ($(ROOT_MANAGER),apatch)
 install: install-apatch
 else
