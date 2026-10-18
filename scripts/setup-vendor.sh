@@ -35,3 +35,5 @@ vendor_tarball() (
 )
 
 vendor_tarball "https://github.com/tinyalsa/tinyalsa/archive/refs/tags/v2.0.0.tar.gz" tinyalsa
+# we need this oddly specific build cause of UB. You are best off *not asking.*
+vendor_tarball "https://downloads.sourceforge.net/project/sdcc/sdcc/4.4.0/sdcc-src-4.4.0.tar.bz2" sdcc
