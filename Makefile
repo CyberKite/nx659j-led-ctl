@@ -6,6 +6,7 @@ ZIP = $(OUT)/$(MODULE)_$(MODULE_VER).zip
 ANDROID_NDK_HOME = $(HOME)/Android/Sdk/ndk/30.0.16248370
 NDK_BIN = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/linux-x86_64/bin
 NDK_CC = $(NDK_BIN)/aarch64-linux-android26-clang
+SDCC	= vendor/sdcc/build/bin/sdcc
 
 UPDATE_PATH = build/META-INF/com/google/android
 
@@ -27,6 +28,7 @@ clean:
 
 mrproper: clean
 	$(MAKE) -C vendor/tinyalsa clean
+	rm -rf vendor/sdcc/build
 
 ifeq ($(ROOT_MANAGER),apatch)
 install: install-apatch
@@ -80,3 +82,10 @@ build/tinymix: vendor/tinyalsa
 	$(MAKE) -C vendor/tinyalsa/utils tinymix \
 		CC='$(NDK_CC)' LD='$(NDK_CC)'
 	cp vendor/tinyalsa/utils/tinymix '$@'
+
+vendor/sdcc/build/Makefile: vendor/sdcc
+	mkdir -p '$(dir $@)'
+	cd '$(dir $@)' && ../configure --disable-pic14-port --disable-pic16-port
+
+$(SDCC): vendor/sdcc/build/Makefile
+	make -C vendor/sdcc/build
