@@ -5,6 +5,7 @@ vendor_tarball() (
     url=$1
     name=$2
     dest="vendor/${name}"
+    ext="${url##*.}"
 
     if [ -d "${dest}" ]; then
 	printf '%s already vendored\n' "${name}"
@@ -17,9 +18,17 @@ vendor_tarball() (
 
     printf '%s -> %s\n' "${url}" "${dest}"
 
-    wget -qO "${tmp}/archive.tar.gz" "${url}"
+    case "${ext}" in
+	gz)	tarflags="-z";;
+	bz2)	tarflags="-j";;
+	tar)	tarflags="";;
+	*)	echo "${dest}: ${ext} unsupported"; exit 1;;
+    esac
+
+    tarball="${tmp}/archive.tar.${ext}"
+    wget -qO "${tarball}" "${url}"
     mkdir "${tmp}/extracted"
-    tar -xzf "${tmp}/archive.tar.gz" \
+    tar "${tarflags}" -xf "${tarball}" \
 	-C "${tmp}/extracted" --strip-components=1
 
     mv "${tmp}/extracted" "${dest}"
