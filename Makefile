@@ -11,8 +11,11 @@ SDCC	= vendor/sdcc/build/bin/sdcc
 UPDATE_PATH = build/META-INF/com/google/android
 
 SRC_FILES = $(shell find src -type f)
+NATIVE_C = $(filter-out src/firmware/%,$(filter %.c,$(SRC_FILES)))
+FIRMWARE_C = $(filter src/firmware/%.c,$(SRC_FILES))
 BUILD_FILES = $(patsubst src/%,build/%,$(filter-out %.c,$(SRC_FILES))) \
-	$(patsubst src/%.c,build/%,$(filter %.c,$(SRC_FILES))) \
+	$(patsubst src/%.c,build/%,$(NATIVE_C)) \
+	$(patsubst src/%.c,build/%.ihx,$(FIRMWARE_C)) \
 	$(UPDATE_PATH)/update-binary \
 	$(UPDATE_PATH)/updater-script \
 	build/tinymix
