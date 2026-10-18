@@ -5,7 +5,7 @@ ZIP = $(OUT)/$(MODULE)_$(MODULE_VER).zip
 
 ANDROID_NDK_HOME = $(HOME)/Android/Sdk/ndk/30.0.16248370
 NDK_BIN = $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/linux-x86_64/bin
-CC = $(NDK_BIN)/aarch64-linux-android26-clang
+NDK_CC = $(NDK_BIN)/aarch64-linux-android26-clang
 
 UPDATE_PATH = build/META-INF/com/google/android
 
@@ -60,7 +60,7 @@ build/%.default: src/%.default
 
 build/%: src/%.c
 	mkdir -p '$(dir $@)'
-	$(CC) $(CFLAGS) $(LDFLAGS) -o '$@' '$<'
+	$(NDK_CC) $(CFLAGS) $(LDFLAGS) -o '$@' '$<'
 
 $(UPDATE_PATH)/updater-script:
 	mkdir -p '$(dir $@)'
@@ -73,7 +73,7 @@ $(UPDATE_PATH)/update-binary:
 build/tinymix: vendor/tinyalsa
 	mkdir -p '$(dir $@)'
 	$(MAKE) -C vendor/tinyalsa/src libtinyalsa.a \
-		CC='$(CC)' AR='$(NDK_BIN)/llvm-ar'
+		CC='$(NDK_CC)' AR='$(NDK_BIN)/llvm-ar'
 	$(MAKE) -C vendor/tinyalsa/utils tinymix \
-		CC='$(CC)' LD='$(CC)'
+		CC='$(NDK_CC)' LD='$(NDK_CC)'
 	cp vendor/tinyalsa/utils/tinymix '$@'
